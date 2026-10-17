@@ -36,7 +36,8 @@ on_exit() {
 trap on_exit INT TERM EXIT
 
 while true; do
-  if playerctl metadata --format '{{status}}\t{{playerName}}\t{{artist}}\t{{title}}\t{{album}}\t{{mpris:length}}\t{{position}}\t{{volume}}' > "$D/now.tmp" 2>/dev/null && [ -s "$D/now.tmp" ]; then
+  TAB=$'\t'
+  if playerctl metadata --format "{{status}}${TAB}{{playerName}}${TAB}{{artist}}${TAB}{{title}}${TAB}{{album}}${TAB}{{mpris:length}}${TAB}{{position}}${TAB}{{volume}}" > "$D/now.tmp" 2>/dev/null && [ -s "$D/now.tmp" ]; then
     mv -f "$D/now.tmp" "$D/now.txt"
   else
     printf 'none\n' > "$D/now.tmp" && mv -f "$D/now.tmp" "$D/now.txt"
