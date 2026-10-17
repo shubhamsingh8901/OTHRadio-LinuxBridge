@@ -32,6 +32,7 @@ echo "othradio-bridge: watching $D (press Ctrl-C to stop)"
 on_exit() {
   printf 'none\n' > "$D/now.txt" 2>/dev/null
   : > "$D/cmd"
+  exit 0
 }
 trap on_exit INT TERM EXIT
 
@@ -44,7 +45,10 @@ while true; do
   fi
 
   if [ -s "$D/cmd" ]; then
-    while IFS= read -r c; do
+    # snapshot then truncate before parsing: kills the read/truncate race where a
+    # mid-write write could lose its first line; also tolerates a missing final \n
+    cp "$D/cmd" "$D/cmd.working" && : > "$D/cmd"
+    while IFS= read -r c || [ -n "$c" ]; do
       [ -z "$c" ] && continue
       case "$c" in
         play-pause|play|pause|next|previous)
@@ -56,8 +60,8 @@ while true; do
             playerctl volume "$a" >/dev/null 2>&1
           fi ;;
       esac
-    done < "$D/cmd"
-    : > "$D/cmd"
+    done < "$D/cmd.working"
+    rm -f "$D/cmd.working"
   fi
 
   sleep 0.5
