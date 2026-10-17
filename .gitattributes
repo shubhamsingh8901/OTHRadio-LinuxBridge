@@ -1,0 +1,2 @@
+# keep the bridge script usable on Linux
+*.sh text eol=lf

@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <LangVersion>14</LangVersion>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <AssemblyName>OthRadioBridgeTests</AssemblyName>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\OTHRadio_src\OTHRadio\LinuxBridgeMedia.cs" />
+    <Compile Include="..\OTHRadio_src\OTHRadio\IPcBackend.cs" />
+    <Compile Include="..\OTHRadio_src\OTHRadio\PcCommand.cs" />
+    <Compile Include="..\OTHRadio_src\OTHRadio\WineDetector.cs" />
+    <Compile Include="Program.cs" />
+  </ItemGroup>
+</Project>

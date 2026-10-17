@@ -1,0 +1,13 @@
+# build outputs
+bin/
+obj/
+*.user
+.vs/
+
+# originals not redistributed with the repo (kept locally)
+OTHRadio.dll
+OTHRadio_decompiled_original/
+
+# OS junk
+Thumbs.db
+desktop.ini
