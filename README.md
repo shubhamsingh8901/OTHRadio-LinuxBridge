@@ -89,28 +89,47 @@ chmod +x othradio-bridge.sh
 
 ## What was verified (and what wasn't)
 
-Verified here (Windows machine, no game install):
-
+Verified here (Windows):
 - Full decompile of the shipped `OTHRadio.dll` 1.2.0 (clean, all code reviewed).
 - The Windows WinRT worker was transcribed 1:1 into `WindowsMedia`;
   cross-checked against a fresh decompile: identical vtable slot sequence,
   call-site sequence and combase imports.
-- `LinuxBridgeMedia`, `PcCommand`, `IPcBackend`, `WineDetector` were compiled
-  for real and executed in a test harness (`tests/`): **49/49 passed**, including
-  a live file-protocol round trip (real thread polling `now.txt`, commands
-  appended to `cmd`, folder resolution from `HOME`, volume ordering).
-- Whole-tree syntax gate: parses with zero syntax errors (only expected
-  unresolved-reference errors without game DLLs).
+- `LinuxBridgeMedia`, `PcCommand`, `IPcBackend`, `WineDetector` compiled and
+  executed in a test harness (`tests/OthRadioBridgeTests.csproj, multi-target
+  net8/net10`): **49/49 passed**, including a live file-protocol round trip.
+- The mod itself **builds clean**: `dotnet build -c Release
+  -p:RefsDir=<MelonLoader/net6> -p:ProxiesDir=<Il2CppAssemblies>` → 0 errors
+  (warnings are expected Windows-only-COM notes).
 
-NOT verified here (needs the game):
+Verified end-to-end on real Linux (WSL2 Ubuntu 26.04, real DBus):
+- Real MPRIS player (VLC headless) + real `playerctl` + this repo's
+  `othradio-bridge.sh`: `now.txt` carries the exact 8-field tab-separated line
+  (status/player/artist/title/album/length_us/position_us/volume) with correct
+  values, and the command matrix (`pause`, `play`, `next`, `previous`, `vol`,
+  incl. multi-line batch appends) executes **3× full PASS** through the
+  production script.
+- Lifecycle: bridge exits cleanly on TERM (systemd-stop semantics), publishes
+  `none`, and republishes a live line after relaunch.
+- Backend harness re-run on native Linux: **49/49 PASS** (net10 target).
 
-- `dotnet build` of the mod itself (reference DLLs unavailable on this machine).
-- In-game behavior under Proton/Spotify; the WinRT/WASAPI Windows path after
-  the refactor; MelonLoader preference wiring at runtime.
+Defects found by the live Linux run and fixed:
+1. `playerctl --format` does not expand `\t` - the script emitted literal
+   backslash-t; the mod parses on real tabs. (fatal: every line would read as
+   one garbage field)
+2. `WineDetector` used `DllImport("kernel32")` for the probe and would throw
+   `DllNotFoundException` on a non-Wine Linux host. Now uses `NativeLibrary`.
+3. The bridge ignored `SIGTERM` (bash resumes the loop after a trap) - systemd
+   stop would look hung. Handler now exits.
+4. `cmd` intake did read-then-truncate; a mid-append write could lose its first
+   line. Now snapshot-then-truncate, and a missing final newline is tolerated.
 
-So: status is **code complete + bridge protocol tested; in-game test pending** -
-do the build + in-game test on the machine that has the game, and check
-`MelonLoader/Latest.log` for `[OTHRadio]` lines as described above.
+NOT verified here (needs the actual game):
+- In-game behavior under Proton; the WinRT/WASAPI Windows path after the
+  refactor; MelonLoader preference wiring at runtime. Check
+  `MelonLoader/Latest.log` for `[OTHRadio]` lines as described above.
+
+So: status is **code complete, mod builds, bridge protocol verified live on
+Linux; in-game verification pending**.
 
 ## File map
 

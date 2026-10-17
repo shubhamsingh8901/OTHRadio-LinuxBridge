@@ -7,7 +7,7 @@ using System.Security.Permissions;
 using MelonLoader;
 using OTHRadio;
 
-[assembly: MelonInfo(typeof(Radio), "Over the Hill Radio", "1.3.0", "SquidFromWish", null)]
+[assembly: MelonInfo(typeof(Radio), "Over the Hill Radio", "1.3.1", "SquidFromWish", null)]
 [assembly: MelonGame("Funselektor", "over the hill")]
 [assembly: AssemblyCompany("OTHRadio")]
 [assembly: AssemblyConfiguration("Release")]
