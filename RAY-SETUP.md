@@ -3,8 +3,14 @@
 Goal: make the **PC / Spotify** station of the OTHRadio mod work under
 Steam/Proton by bridging it to `playerctl`. Two paths - use the one you got:
 
-- **Path A (prebuilt)**: you received `OTHRadio.dll` (1.3.0) directly from Sai
-  -> skip step 2.
+- **Path A (prebuilt)**: get the ready-made DLL straight from the releases page:
+  `https://github.com/shubhamsingh8901/OTHRadio-LinuxBridge/releases/latest/download/OTHRadio.dll`
+
+  Or run the one-tap installer, which fetches it and does everything below for you:
+
+  ```bash
+  curl -fsSL https://raw.githubusercontent.com/shubhamsingh8901/OTHRadio-LinuxBridge/main/one-tap.sh -o /tmp/one-tap.sh && bash /tmp/one-tap.sh
+  ```
 - **Path B (build here)**: you build the repo yourself.
 
 ---
