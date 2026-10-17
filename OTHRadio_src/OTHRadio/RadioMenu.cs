@@ -4,6 +4,7 @@ using System.IO;
 using Il2Cpp;
 using Il2CppTMPro;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace OTHRadio;
 
@@ -127,7 +128,7 @@ internal static class RadioMenu
 			((TMP_Text)_shuffle.Text).text = (LocalPlayer.Shuffle ? "Shuffle on" : "Shuffle off");
 			((TMP_Text)_volume).text = $"{Mathf.RoundToInt(LocalPlayer.Volume * 100f)}%";
 			((TMP_Text)_songs).text = ((LocalPlayer.Files.Count == 0) ? "No songs yet - put mp3, ogg, flac or wav files in your music folder" : $"{LocalPlayer.Files.Count} songs in your music folder");
-				_003F val = _pcHint;
+				var val = _pcHint;
 			string text3;
 			if (PcMedia.Available)
 			{

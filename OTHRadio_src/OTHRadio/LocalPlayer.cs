@@ -172,7 +172,7 @@ internal static class LocalPlayer
 		//IL_000f: Unknown result type (might be due to invalid IL or missing references)
 		//IL_0025: Unknown result type (might be due to invalid IL or missing references)
 		uint num = default;
-		if (_hasSound && (int)_channel.getPosition(ref num, (TIMEUNIT)1) == 0 && num > 4000)
+		if (_hasSound && (int)_channel.getPosition(out num, (TIMEUNIT)1) == 0 && num > 4000)
 		{
 			_channel.setPosition(0u, (TIMEUNIT)1);
 		}
@@ -213,14 +213,14 @@ internal static class LocalPlayer
 			return;
 		}
 		Index = i;
-		System coreSystem = RuntimeManager.CoreSystem;
-		RESULT val = coreSystem.createStream(Files[i], (MODE)9, ref _sound);
+		Il2CppFMOD.System coreSystem = RuntimeManager.CoreSystem;
+		RESULT val = coreSystem.createStream(Files[i], (MODE)9, out _sound);
 		if ((int)val != 0)
 		{
 			Radio.Log.Warning($"Can't play {Path.GetFileName(Files[i])}: {val}");
 			return;
 		}
-		val = coreSystem.playSound(_sound, default(ChannelGroup), false, ref _channel);
+		val = coreSystem.playSound(_sound, default(ChannelGroup), false, out _channel);
 		if ((int)val != 0)
 		{
 			_sound.release();
@@ -242,12 +242,12 @@ internal static class LocalPlayer
 			return (pos: -1.0, len: -1.0);
 		}
 		uint num = default;
-		if ((int)_sound.getLength(ref num, (TIMEUNIT)1) != 0 || num == 0)
+		if ((int)_sound.getLength(out num, (TIMEUNIT)1) != 0 || num == 0)
 		{
 			return (pos: -1.0, len: -1.0);
 		}
 		uint num2 = default;
-		_channel.getPosition(ref num2, (TIMEUNIT)1);
+		_channel.getPosition(out num2, (TIMEUNIT)1);
 		return (pos: (double)num2 / 1000.0, len: (double)num / 1000.0);
 	}
 
@@ -279,7 +279,7 @@ internal static class LocalPlayer
 		if (_hasSound && !_paused)
 		{
 			bool flag = default;
-			if ((int)_channel.isPlaying(ref flag) != 0 || !flag)
+			if ((int)_channel.isPlaying(out flag) != 0 || !flag)
 			{
 				Next();
 			}

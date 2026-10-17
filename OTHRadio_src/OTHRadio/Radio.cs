@@ -9,6 +9,7 @@ using MelonLoader.Utils;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
+using Object = UnityEngine.Object;
 
 namespace OTHRadio;
 
@@ -336,7 +337,7 @@ public class Radio : MelonMod
 			try
 			{
 				float num = default;
-				return ((int)_musicBus.getVolume(ref num) == 0) ? Mathf.Clamp01(num) : (-1f);
+				return ((int)_musicBus.getVolume(out num) == 0) ? Mathf.Clamp01(num) : (-1f);
 			}
 			catch
 			{
@@ -397,7 +398,7 @@ public class Radio : MelonMod
 			}
 			try
 			{
-				Album currentAlbum = instance.GetCurrentAlbum();
+				InGameMusicManager.Album currentAlbum = instance.GetCurrentAlbum();
 				item2 = ((currentAlbum != null) ? (currentAlbum.Title ?? "") : "");
 			}
 			catch
@@ -487,8 +488,8 @@ public class Radio : MelonMod
 			{
 				try
 				{
-					System studioSystem = RuntimeManager.StudioSystem;
-					if ((int)studioSystem.getBus(text, ref _musicBus) == 0)
+					Il2CppFMOD.Studio.System studioSystem = RuntimeManager.StudioSystem;
+					if ((int)studioSystem.getBus(text, out _musicBus) == 0)
 					{
 						_busFound = true;
 						Log.Msg("Following game music volume via " + text);
@@ -508,7 +509,7 @@ public class Radio : MelonMod
 		{
 			float num = default;
 			float num2 = default;
-			return ((int)_musicBus.getVolume(ref num, ref num2) == 0) ? Mathf.Clamp01(num2) : 1f;
+			return ((int)_musicBus.getVolume(out num, out num2) == 0) ? Mathf.Clamp01(num2) : 1f;
 		}
 		catch
 		{

@@ -64,7 +64,7 @@ internal static class GameProgress
 		{
 			EventInstance eventInstance = instance.musicEmitter.EventInstance;
 			ChannelGroup val = default;
-			if ((int)eventInstance.getChannelGroup(ref val) != 0)
+			if ((int)eventInstance.getChannelGroup(out val) != 0)
 			{
 				return (pos: -1.0, len: -1.0);
 			}
@@ -77,13 +77,13 @@ internal static class GameProgress
 				return (pos: -1.0, len: -1.0);
 			}
 			string text = default;
-			bestSound.getName(ref text, 256);
+			bestSound.getName(out text, 256);
 			if (text != _lastName)
 			{
 				_lastName = text;
 				(Title, Artist) = ParseName(text);
 				int num = default;
-				eventInstance.getTimelinePosition(ref num);
+				eventInstance.getTimelinePosition(out num);
 				Radio.Log.Msg($"Game soundtrack file: '{text}' {(double)bestLen / 1000.0:0.0}s (at {(double)bestPos / 1000.0:0.0}s, event timeline {(double)num / 1000.0:0.0}s)");
 			}
 			return (pos: (double)bestPos / 1000.0, len: (double)bestLen / 1000.0);
@@ -112,7 +112,7 @@ internal static class GameProgress
 			return;
 		}
 		int num = default;
-		if ((int)group.getNumChannels(ref num) == 0)
+		if ((int)group.getNumChannels(out num) == 0)
 		{
 			Channel val = default;
 			bool flag = default;
@@ -121,9 +121,9 @@ internal static class GameProgress
 			uint num3 = default;
 			for (int i = 0; i < num; i++)
 			{
-				if ((int)group.getChannel(i, ref val) == 0 && (int)val.isPlaying(ref flag) == 0 && flag && (int)val.getCurrentSound(ref val2) == 0 && (int)val2.getLength(ref num2, (TIMEUNIT)1) == 0 && num2 > bestLen)
+				if ((int)group.getChannel(i, out val) == 0 && (int)val.isPlaying(out flag) == 0 && flag && (int)val.getCurrentSound(out val2) == 0 && (int)val2.getLength(out num2, (TIMEUNIT)1) == 0 && num2 > bestLen)
 				{
-					val.getPosition(ref num3, (TIMEUNIT)1);
+					val.getPosition(out num3, (TIMEUNIT)1);
 					bestLen = num2;
 					bestPos = num3;
 					bestSound = val2;
@@ -131,14 +131,14 @@ internal static class GameProgress
 			}
 		}
 		int num4 = default;
-		if ((int)group.getNumGroups(ref num4) != 0)
+		if ((int)group.getNumGroups(out num4) != 0)
 		{
 			return;
 		}
 		ChannelGroup val3 = default;
 		for (int j = 0; j < num4; j++)
 		{
-			if ((int)group.getGroup(j, ref val3) == 0)
+			if ((int)group.getGroup(j, out val3) == 0)
 			{
 				Walk(val3, depth + 1, ref bestLen, ref bestPos, ref bestSound);
 			}

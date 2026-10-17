@@ -38,16 +38,16 @@
       <HintPath>$(ProxiesDir)\Il2Cppmscorlib.dll</HintPath>
       <Private>false</Private>
     </Reference>
-    <Reference Include="Il2CppFMOD">
-      <HintPath>$(ProxiesDir)\Il2CppFMOD.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
     <Reference Include="Il2CppFMODUnity">
       <HintPath>$(ProxiesDir)\Il2CppFMODUnity.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="Il2CppFunselektor.FunCore.Runtime">
       <HintPath>$(ProxiesDir)\Il2CppFunselektor.FunCore.Runtime.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Il2CppFusion.Runtime">
+      <HintPath>$(ProxiesDir)\Il2CppFusion.Runtime.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">

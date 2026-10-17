@@ -97,7 +97,7 @@ internal sealed class WindowsMedia : IPcBackend
 		}
 		if (_isPlaying)
 		{
-			num += (double)(DateTime.UtcNow.Ticks - Interlocked.Read(in _positionStampUtcTicks)) / 10000000.0;
+			num += (double)(DateTime.UtcNow.Ticks - Interlocked.Read(ref _positionStampUtcTicks)) / 10000000.0;
 		}
 		return (pos: Math.Clamp(num, 0.0, length), len: length);
 	}

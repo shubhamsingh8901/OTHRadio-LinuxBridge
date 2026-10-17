@@ -8,6 +8,7 @@ using Il2CppTMPro;
 using MelonLoader;
 using MelonLoader.Preferences;
 using UnityEngine;
+using Object = UnityEngine.Object;
 using UnityEngine.Events;
 using UnityEngine.UI;
 

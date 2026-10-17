@@ -3,6 +3,7 @@ using Il2Cpp;
 using Il2CppInterop.Runtime;
 using Il2CppTMPro;
 using UnityEngine;
+using Object = UnityEngine.Object;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -273,10 +274,10 @@ internal static class NowPlayingPanel
 		_slider.fillRect = val5.GetComponent<RectTransform>();
 		_slider.handleRect = component2;
 		((Selectable)_slider).targetGraphic = (Graphic)(object)component3;
-		_slider.direction = (Direction)0;
+		_slider.direction = (Slider.Direction)0;
 		_slider.minValue = 0f;
 		_slider.maxValue = 1f;
-		((Selectable)_slider).transition = (Transition)0;
+		((Selectable)_slider).transition = (Selectable.Transition)0;
 		((UnityEvent<float>)(object)_slider.onValueChanged).AddListener(DelegateSupport.ConvertDelegate<UnityAction<float>>((Delegate)new Action<float>(Radio.SetStationVolume)));
 	}
 }

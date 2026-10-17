@@ -147,7 +147,7 @@ internal sealed class LinuxBridgeMedia : IPcBackend
 		}
 		if (_isPlaying)
 		{
-			num += (double)(DateTime.UtcNow.Ticks - Interlocked.Read(in _stampUtcTicks)) / 10000000.0;
+			num += (double)(DateTime.UtcNow.Ticks - Interlocked.Read(ref _stampUtcTicks)) / 10000000.0;
 		}
 		return (pos: Math.Clamp(num, 0.0, length), len: length);
 	}

@@ -5,6 +5,7 @@ using Il2CppInterop.Runtime;
 using Il2CppInterop.Runtime.InteropTypes;
 using Il2CppTMPro;
 using UnityEngine;
+using Object = UnityEngine.Object;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
