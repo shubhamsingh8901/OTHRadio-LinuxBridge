@@ -14,7 +14,7 @@ namespace OTHRadio;
 
 public class Radio : MelonMod
 {
-	internal static Instance Log;
+	internal static MelonLogger.Instance Log;
 
 	private static MelonPreferences_Category _cfg;
 

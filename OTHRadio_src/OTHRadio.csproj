@@ -10,62 +10,64 @@
     <!-- Folder that contains MelonLoader/ (the game install). Override like:
          dotnet build -c Release -p:GameDir="/path/to/Over the Hill"        -->
     <GameDir Condition="'$(GameDir)' == ''">C:\Program Files (x86)\Steam\steamapps\common\Over the Hill</GameDir>
-    <GameProxies>$(GameDir)\MelonLoader\Il2CppAssemblies</GameProxies>
-    <GameNet6>$(GameDir)\MelonLoader\net6</GameNet6>
+    <!-- The two halves can also be given independently, e.g. when compiling on a
+         machine without the game: -p:RefsDir=".../MelonLoader/net6" -p:ProxiesDir=".../Il2CppAssemblies" -->
+    <RefsDir Condition="'$(RefsDir)' == ''">$(GameDir)\MelonLoader\net6</RefsDir>
+    <ProxiesDir Condition="'$(ProxiesDir)' == ''">$(GameDir)\MelonLoader\Il2CppAssemblies</ProxiesDir>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="MelonLoader">
-      <HintPath>$(GameNet6)\MelonLoader.dll</HintPath>
+      <HintPath>$(RefsDir)\MelonLoader.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="0Harmony">
-      <HintPath>$(GameNet6)\0Harmony.dll</HintPath>
+      <HintPath>$(RefsDir)\0Harmony.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="Il2CppInterop.Runtime">
-      <HintPath>$(GameNet6)\Il2CppInterop.Runtime.dll</HintPath>
+      <HintPath>$(RefsDir)\Il2CppInterop.Runtime.dll</HintPath>
       <Private>false</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Assembly-CSharp">
-      <HintPath>$(GameProxies)\Assembly-CSharp.dll</HintPath>
+      <HintPath>$(ProxiesDir)\Assembly-CSharp.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="Il2Cppmscorlib">
-      <HintPath>$(GameProxies)\Il2Cppmscorlib.dll</HintPath>
+      <HintPath>$(ProxiesDir)\Il2Cppmscorlib.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="Il2CppFMOD">
-      <HintPath>$(GameProxies)\Il2CppFMOD.dll</HintPath>
+      <HintPath>$(ProxiesDir)\Il2CppFMOD.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="Il2CppFMODUnity">
-      <HintPath>$(GameProxies)\Il2CppFMODUnity.dll</HintPath>
+      <HintPath>$(ProxiesDir)\Il2CppFMODUnity.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="Il2CppFunselektor.FunCore.Runtime">
-      <HintPath>$(GameProxies)\Il2CppFunselektor.FunCore.Runtime.dll</HintPath>
+      <HintPath>$(ProxiesDir)\Il2CppFunselektor.FunCore.Runtime.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
-      <HintPath>$(GameProxies)\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>$(ProxiesDir)\UnityEngine.CoreModule.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="UnityEngine.UIModule">
-      <HintPath>$(GameProxies)\UnityEngine.UIModule.dll</HintPath>
+      <HintPath>$(ProxiesDir)\UnityEngine.UIModule.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>$(GameProxies)\UnityEngine.UI.dll</HintPath>
+      <HintPath>$(ProxiesDir)\UnityEngine.UI.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="Unity.InputSystem">
-      <HintPath>$(GameProxies)\Unity.InputSystem.dll</HintPath>
+      <HintPath>$(ProxiesDir)\Unity.InputSystem.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>$(GameProxies)\Unity.TextMeshPro.dll</HintPath>
+      <HintPath>$(ProxiesDir)\Unity.TextMeshPro.dll</HintPath>
       <Private>false</Private>
     </Reference>
   </ItemGroup>

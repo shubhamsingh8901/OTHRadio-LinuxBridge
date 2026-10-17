@@ -54,7 +54,7 @@ internal static class UpdateCheck
 		_enabled = cfg.CreateEntry<bool>("CheckForUpdates", true, (string)null, "Once per launch, check if a newer version is on Nexus and show a note in the menu (and a popup for important fixes). Only reads a small version file from GitHub.", false, false, (ValueValidator)null, (string)null);
 	}
 
-	internal static void Start(string key, string current, string name, Instance log)
+	internal static void Start(string key, string current, string name, MelonLogger.Instance log)
 	{
 		_name = name.Replace("Over the Hill ", "");
 		if (_enabled != null && !_enabled.Value)
